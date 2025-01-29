@@ -1,43 +1,25 @@
-import express, { response } from 'express';
+import express, { request, response } from 'express';
 import { PORT,mongoDBURL } from './config.js';
 import mongoose from 'mongoose';
+import gymRoute from './routes/gymRoute.js';
+import userRoute from './routes/userRoute.js';
+import cors from 'cors';
 
-import { Gym } from './models/gyminfoModel.js';
 
 const gymapp=express();
 
 gymapp.use(express.json());
 
+gymapp.use(cors());
+
 gymapp.get('/',(request,response)=>{
     //console.log(request);
-    return response.status(200).send('Welcome to GYM information App');
+    return response.status(234).send('Welcome to GYM information App');
 });
 
-//Route to save new gym info
-gymapp.post('/gym',async(request,response)=>{
-   try{
-    if(!request.body.exerciseTitle || !request.body.load || !request.body.preps)
-    {
-        return response.status(400).send({
-            message:'Send all required fields:exerciseTitle,load,preps',
-        });
-    }
+gymapp.use('/gym',gymRoute);
 
-    const newgyminfo={
-      exerciseTitle:request.body.exerciseTitle,
-      load:request.body.load,
-      preps:request.body.preps,
-    }
-
-    const gyminfo=await Gym.create(newgyminfo);
-
-    return response.status(201).send(gyminfo);
-   }
-   catch(error){
-      console.log(error.message);
-      response.status(500).send({message:error.message});
-   }
-})
+gymapp.use('/user',userRoute);
 
 mongoose
 .connect(mongoDBURL)
