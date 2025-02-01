@@ -12,7 +12,7 @@ router.post('/signup',async(request,response)=>{
       const existingemail=await User.findOne({email});
 
       if(existingemail){
-        return response.status(400).json({message:'Username or email already exists'});
+        return response.status(400).json({message:'Email already exists'});
       }
       const hashedPassword=await bcrypt.hash(password,10);
 
