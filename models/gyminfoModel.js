@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const gymSchema=mongoose.Schema(
     {
-      exerciseTitle:{
+      exerciseSizeTitle:{
         type:String,
         required:true,
       },
@@ -13,11 +13,6 @@ const gymSchema=mongoose.Schema(
       preps:{
         type:Number,
         required:true,
-      },
-      userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:'true'
       },
   },
   {

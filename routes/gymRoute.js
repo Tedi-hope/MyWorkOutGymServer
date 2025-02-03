@@ -1,11 +1,12 @@
 import express, { request, response } from 'express';
 import { Gym } from '../models/gyminfoModel.js';
-import { authenticateUser } from '../middleware/authenticateUser.js';
+//import { authenticateUser } from '../middleware/authenticateUser.js';
 
 const router=express.Router();
 
 //Route to save new gym info
-router.post('/',authenticateUser,async(request,response)=>{
+router.post('/',async(request,response)=>{
+   
     try{
      if(!request.body.exerciseSizeTitle || !request.body.load || !request.body.preps)
      {
@@ -13,14 +14,13 @@ router.post('/',authenticateUser,async(request,response)=>{
              message:'Send all required fields:exerciseTitle,load,preps',
          });
      }
- 
+    
      const newgyminfo={
-       exerciseTitle:request.body.exerciseSizeTitle,
+       exerciseSizeTitle:request.body.exerciseSizeTitle,
        load:request.body.load,
        preps:request.body.preps,
-       userId:request.user.userId,
      }
- 
+     //console.log(request.user)
      const gyminfo=await Gym.create(newgyminfo);
  
      return response.status(201).send(gyminfo);

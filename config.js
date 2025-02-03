@@ -5,4 +5,4 @@ export const PORT=8888;
 
 export const mongoDBURL='mongodb+srv://root:gympwd@gym-exercise-infodb.dmytm.mongodb.net/gyminfotable';
 
-export const JWT_SECRET='secretcodefor@GYM2025'
+export const JWT_SECRET='secretcodefor@GYM2025';
